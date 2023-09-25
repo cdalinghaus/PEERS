@@ -15,8 +15,8 @@ wandb_run_name = 'mini-gpt'
 
 dataset = 'shakespeare_char'
 gradient_accumulation_steps = 1
-batch_size = 64
-block_size = 256 # context of up to 256 previous characters
+batch_size = 1
+block_size = 4048 #4048 # context of up to 256 previous characters
 
 # baby GPT model :)
 n_layer = 6
