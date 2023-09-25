@@ -13,12 +13,11 @@ import random
 
 class EEGDataset:
     
-    def __init__(self, block_size, train_path = "tmp/nanoGPT/", val_path = "tmp/nanoGPT/"):
+    def __init__(self, block_size, data_path = "tmp/nanoGPT/"):
         
-        self.train_files = [os.path.join(train_path, x) for x in os.listdir(train_path) if x.endswith(".rhead")]
-        self.val_files = [os.path.join(val_path, x) for x in os.listdir(val_path) if x.endswith(".rhead")]
+        self.train_files = [os.path.join(data_path, x) for x in os.listdir(data_path) if x.endswith(".rhead")]
         
-        self.tokenizer = Tokenizer.from_file("bpe_tokenizer.json")
+        self.tokenizer = Tokenizer.from_file("../bpe_tokenizer.json")
         
         self.chunk_size = 50000
         self.block_size = block_size
@@ -95,9 +94,9 @@ class EEGDataset:
         return ids[:-1], ids[1:]
     
     
-    def get_batch(self, split):
+    def get_batch(self):
         self.chunk_size -= 1
-        file_name = random.choice(self.train_files) if split == 'train' else random.choice(self.val_files)
+        file_name = random.choice(self.train_files)
         
         X, y = self.read_random_chunk(file_name)
         X, y = X.long(), y.long()
@@ -113,4 +112,4 @@ class EEGDataset:
         return 1000000
     
     def __getitem__(self, idx):
-        return self.get_batch("train")
+        return self.get_batch()
