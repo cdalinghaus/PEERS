@@ -122,7 +122,7 @@ sys.path.append('..')
 from torch.utils.data import DataLoader
 from dataset import EEGDataset
 
-eeg_dataset = EEGDataset(block_size=block_size, data_path="/home/constantin/Downloads/")
+eeg_dataset = EEGDataset(block_size=block_size, data_path="/mnt/large_eeg/pretrain/train")
 eeg_dataset_loader = DataLoader(eeg_dataset, batch_size=batch_size, shuffle=True, num_workers=10, prefetch_factor=10)
 loader_iterator = iter(eeg_dataset_loader)
 

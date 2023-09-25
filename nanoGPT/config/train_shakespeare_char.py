@@ -9,19 +9,19 @@ log_interval = 10 # don't print too too often
 # we expect to overfit on this small dataset, so only save when val improves
 always_save_checkpoint = False
 
-wandb_log = False # override via command line if you like
+wandb_log = True # override via command line if you like
 wandb_project = 'shakespeare-char'
 wandb_run_name = 'mini-gpt'
 
 dataset = 'shakespeare_char'
 gradient_accumulation_steps = 1
 batch_size = 1
-block_size = 4048 #4048 # context of up to 256 previous characters
+block_size = 8096 #4048 #4048 # context of up to 256 previous characters
 
 # baby GPT model :)
-n_layer = 6
-n_head = 6
-n_embd = 384
+n_layer = 48
+n_head = 48
+n_embd = 768 #768 #384
 dropout = 0.2
 
 learning_rate = 1e-3 # with baby networks can afford to go a bit higher
