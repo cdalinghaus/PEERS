@@ -126,9 +126,16 @@ eeg_dataset = EEGDataset(block_size=block_size, data_path="/mnt/large_eeg/pretra
 eeg_dataset_loader = DataLoader(eeg_dataset, batch_size=batch_size, shuffle=True, num_workers=10, prefetch_factor=10)
 loader_iterator = iter(eeg_dataset_loader)
 
+eeg_dataset_val = EEGDataset(block_size=block_size, data_path="/mnt/large_eeg/pretrain/val")
+eeg_dataset_loader_val = DataLoader(eeg_dataset_val, batch_size=batch_size, shuffle=True, num_workers=10, prefetch_factor=10)
+loader_iterator_val = iter(eeg_dataset_loader_val)
+
 def get_batch(split):
 
-    x, y = next(loader_iterator)
+    if split == "train":
+        x, y = next(loader_iterator)
+    else:
+        x, y = next(loader_iterator_val)
 
     if device_type == 'cuda':
         # pin arrays x,y, which allows us to move them to GPU asynchronously (non_blocking=True)

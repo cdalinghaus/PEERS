@@ -2,7 +2,7 @@
 # good for debugging and playing on macbooks and such
 
 out_dir = 'out-shakespeare-char'
-eval_interval = 250 # keep frequent because we'll overfit
+eval_interval = 250*8 # keep frequent because we'll overfit
 eval_iters = 200
 log_interval = 10 # don't print too too often
 
@@ -14,7 +14,7 @@ wandb_project = 'shakespeare-char'
 wandb_run_name = 'mini-gpt'
 
 dataset = 'shakespeare_char'
-gradient_accumulation_steps = 1
+gradient_accumulation_steps = 8
 batch_size = 1
 block_size = 8096 #4048 #4048 # context of up to 256 previous characters
 
