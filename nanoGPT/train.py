@@ -28,6 +28,7 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.distributed import init_process_group, destroy_process_group
 
 from model import GPTConfig, GPT
+from Sophia import SophiaG
 
 # -----------------------------------------------------------------------------
 # default config values designed to train a gpt2 (124M) on OpenWebText
@@ -226,7 +227,9 @@ model.to(device)
 scaler = torch.cuda.amp.GradScaler(enabled=(dtype == 'float16'))
 
 # optimizer
-optimizer = model.configure_optimizers(weight_decay, learning_rate, (beta1, beta2), device_type)
+#optimizer = model.configure_optimizers(weight_decay, learning_rate, (beta1, beta2), device_type)
+optimizer = SophiaG(model.parameters(), lr=learning_rate, betas=(0.965, 0.99), rho = 0.01, weight_decay=1e-1)
+
 if init_from == 'resume':
     optimizer.load_state_dict(checkpoint['optimizer'])
 checkpoint = None # free up memory
